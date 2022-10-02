@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Page;
 use App\Models\User;
-use App\Models\Pages_uploads;
 use App\Models\Iletisim_upload;
 use App\Models\Pages_kapak;
 use App\Models\Iletisim;
 use App\Models\Favicons;
+use App\Models\Pages_upload;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -106,7 +106,7 @@ class Panel extends Controller
     $images = $request->file('dosya');
     $new_name = rand() . '.' . $images->getClientOriginalExtension();
     $images->move(public_path('uploads'), $new_name);
-    $pages_uploads = new Pages_uploads;
+    $pages_uploads = new Pages_upload();
     $pages_uploads->dosya = $new_name;
     $pages_uploads->gelen_id = $request->id;
     $pages_uploads->save();
@@ -251,7 +251,7 @@ class Panel extends Controller
   public function resmi_sil(Request $request, $id)
   {
     $onceki_resim = DB::table('pages_uploads')->where('id', $id)->first()->dosya;
-    $pages_uploads = Pages_uploads::find($id);
+    $pages_uploads = Pages_upload::find($id);
     File::Delete("uploads/" . $onceki_resim);
     DB::table('pages_uploads')->where("id", $id)->delete();
     return back();
@@ -278,7 +278,8 @@ class Panel extends Controller
   public function sayfa($id)
   {
     $data = DB::table("pages")->where("id", $id)->first();
-    return view('panel/sayfa', compact('data'));
+    $alt_data = DB::table("pages")->where("ust_id", $id)->get();
+    return view('panel/sayfa', compact('data','alt_data'));
   }
   public function iletisim()
   {

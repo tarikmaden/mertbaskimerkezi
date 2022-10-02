@@ -24,7 +24,7 @@ Route::get('yazilarimiz',[Controller::class,'yazilarimiz'])->name('yazilarimiz')
 Route::get('calisma-alanlarimiz',[Controller::class,'calisma_alanlarimiz'])->name('calisma_alanlarimiz');
 Route::get('galeri',[Controller::class,'galeri'])->name('galeri');
 Route::get('iletisim',[Controller::class,'iletisim'])->name('iletisim');
-Route::get('/',[Controller::class,'ana'])->name('ana');
+Route::get('/',[Controller::class,'anasayfa'])->name('anasayfa');
 Route::post('arama_sonuclari',[Controller::class,'search'])->name('search');
 
 // site önyüz işlmeleri
@@ -46,8 +46,8 @@ Route::group(['prefix' => '/panel','middleware' => 'auth'], function () {
     Route::get('/',[Panel::class,'panel'])->name('panel');
     Route::get('ayarlar',[Panel::class,'ayarlar'])->name('ayarlar');
     Route::post('menu/sayfa_ekle',[Panel::class,'sayfa_ekle'])->name('sayfa_ekle');
+    Route::post('alt_kategori_ekle',[Panel::class,'alt_kategori_ekle'])->name('alt_kategori_ekle');
     Route::post('ilk_kayit',[Panel::class,'ilk_kayit'])->name('ilk_kayit');
-    Route::post('sayfa/alt_kategori_ekle',[Panel::class,'alt_kategori_ekle'])->name('alt_kategori_ekle');
     Route::post('sayfa-guncelleme/{id}',[Panel::class,'update'])->name('update');
     Route::get('kayit-guncelleme/{id}',[Panel::class,'kayit_guncelle'])->name('kayit_guncelle');
     Route::post('sayfa-resim-guncelleme',[Panel::class,'sayfa_resim_update'])->name('sayfa_resim_update');
