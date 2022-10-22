@@ -17,11 +17,11 @@ use App\Http\Middleware\isUsers;
 
 // site önyüz işlemleri
 
-Route::get('anasayfa',[Controller::class,'anasayfa'])->name('anasayfa');
-Route::get('hakkimizda',[Controller::class,'hakkimizda'])->name('hakkimizda');
+Route::get('ana-sayfa',[Controller::class,'anasayfa'])->name('anasayfa');
+Route::get('kurumsal',[Controller::class,'kurumsal'])->name('kurumsal');
 Route::get('ekibimiz',[Controller::class,'ekibimiz'])->name('ekibimiz');
-Route::get('yazilarimiz',[Controller::class,'yazilarimiz'])->name('yazilarimiz');
-Route::get('calisma-alanlarimiz',[Controller::class,'calisma_alanlarimiz'])->name('calisma_alanlarimiz');
+Route::get('blog',[Controller::class,'yazilarimiz'])->name('yazilarimiz');
+Route::get('hizmetlerimiz',[Controller::class,'hizmetlerimiz'])->name('hizmetlerimiz');
 Route::get('galeri',[Controller::class,'galeri'])->name('galeri');
 Route::get('iletisim',[Controller::class,'iletisim'])->name('iletisim');
 Route::get('/',[Controller::class,'anasayfa'])->name('anasayfa');

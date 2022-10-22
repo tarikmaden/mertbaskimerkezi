@@ -43,21 +43,12 @@
                 <div class="collapse navbar-collapse main-navigation mainmenu " id="main-nav-bar">
 
                     <ul class="nav navbar-nav navigation-box">
+
+                        @foreach ($menu as $item)
                         <li>
-                            <a href="./">Ana Sayfa</a>
+                            <a href="<?=url("");?>/{{ $item->slug }}">{{ $item->baslik }}</a>
                         </li>
-                        <li>
-                            <a href="kurumsal.php">Kurumsal</a>
-                        </li>
-                        <li>
-                            <a href="hizmetler.php">Hizmetlerimiz</a>
-                        </li>
-                        <li>
-                            <a href="projeler.php">Projelerimiz</a>
-                        </li>
-                        <li>
-                            <a href="iletisim.php">İletişim</a>
-                        </li>
+                        @endforeach
                     </ul>
                 </div><!-- /.navbar-collapse -->
                 <div class="right-side-box">
