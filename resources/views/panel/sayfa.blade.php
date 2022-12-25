@@ -272,7 +272,6 @@
                                         Sayfa URL
                                     </th>
                                     <th>
-                                    <th>
                                         İşlemler
                                     </th>
                                 </tr>

@@ -8,12 +8,12 @@ use App\Models\Iletisim_upload;
 use App\Models\Pages_kapak;
 use App\Models\Iletisim;
 use App\Models\Favicons;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Pages_upload;
+use App\Models\pages_uploads;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class Panel extends Controller
 {
@@ -106,7 +106,7 @@ class Panel extends Controller
     $images = $request->file('dosya');
     $new_name = rand() . '.' . $images->getClientOriginalExtension();
     $images->move(public_path('uploads'), $new_name);
-    $pages_uploads = new Pages_upload();
+    $pages_uploads = new pages_uploads();
     $pages_uploads->dosya = $new_name;
     $pages_uploads->gelen_id = $request->id;
     $pages_uploads->save();
@@ -194,8 +194,11 @@ class Panel extends Controller
   public function kayit_guncelle(Request $request, $id)
   {
     $users = User::find($id);
+    $users->name = $request->name;
     $users->email = $request->email;
-    $users->password = bcrypt($request->password);
+    if ($request->password != null) {
+        $users->password = bcrypt($request->password);
+    }
     $users->save();
     return back();
   }
@@ -244,26 +247,26 @@ class Panel extends Controller
   }
   public function sayfalari_sil(Request $request, $id)
   {
-    DB::table('pages')->where("ust_id", $id)->delete();
-    DB::table('pages')->where("id", $id)->delete();
+    Page::where("ust_id", $id)->delete();
+    Page::where("id", $id)->delete();
     return back();
   }
   public function resmi_sil(Request $request, $id)
   {
-    $onceki_resim = DB::table('pages_uploads')->where('id', $id)->first()->dosya;
-    $pages_uploads = Pages_upload::find($id);
+    $onceki_resim = pages_uploads::where('id', $id)->first()->dosya;
+    $pages_uploads = pages_uploads::find($id);
     File::Delete("uploads/" . $onceki_resim);
-    DB::table('pages_uploads')->where("id", $id)->delete();
+    pages_uploads::where("id", $id)->delete();
     return back();
   }
   public function sayfalari_sifirla()
   {
-    DB::table('pages')->truncate();
+    Page::truncate();
     return back();
   }
   public function sayfa_getir()
   {
-    $data = DB::table('pages')->get();
+    $data = Page::get();
     return view('panel/menu', compact('data'));
   }
   public function panel()
@@ -272,23 +275,23 @@ class Panel extends Controller
   }
   public function ayarlar()
   {
-    $data = DB::table("users")->first();
+    $data = User::first();
     return view('panel/ayarlar', compact('data'));
   }
   public function sayfa($id)
   {
-    $data = DB::table("pages")->where("id", $id)->first();
-    $alt_data = DB::table("pages")->where("ust_id", $id)->get();
+    $data = Page::where("id", $id)->first();
+    $alt_data = Page::where("ust_id", $id)->get();
     return view('panel/sayfa', compact('data','alt_data'));
   }
   public function iletisim()
   {
-    $data = DB::table("iletisims")->first();
+    $data = Iletisim::first();
     return view('panel/iletisim', compact('data'));
   }
   public function page_edit_get($id)
   {
-    $data = DB::table("pages")->where("id", $id)->get();
+    $data = Page::where("id", $id)->get();
     return view('panel.pageupdate', compact('data'));
   }
 }

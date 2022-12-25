@@ -14,14 +14,14 @@ class Controller extends BaseController
 {
     public function anasayfa()
     {
-        $seo = DB::table("pages")->where("slug", "ana-sayfa")->first();
-        $iletisim = DB::table("iletisims")->first();
-        $slider = DB::table("pages")->where("ust_id", "34")->get();
-        $slider_alti = DB::table("pages")->where("id", "37")->first();
-        $menu = DB::table("pages")->where("ust_id",null)->get();
-        $hizmetler = DB::table("pages")->where("ust_id","3")->get();
+        $seo = Page::where("slug", "ana-sayfa")->first();
+        $iletisim = Iletisim::first();
+        $slider = Page::where("ust_id", "34")->get();
+        $slider_alti = Page::where("id", "37")->first();
+        $menu = Page::where("ust_id",null)->get();
+        $hizmetler = Page::where("ust_id","3")->get();
         //
-        $settings = DB::table("users")->first();
+        $settings = User::first();
 
         echo view('includes/head', compact('menu', 'seo',  'iletisim', 'settings'));
         echo view('anasayfa', compact('slider_alti', 'slider', 'iletisim','hizmetler'));
@@ -29,13 +29,13 @@ class Controller extends BaseController
     }
     public function kurumsal()
     {
-        $seo = DB::table("pages")->where("slug", "kurumsal")->first();
-        $iletisim = DB::table("iletisims")->first();
-        $slider = DB::table("pages")->where("ust_id", "34")->get();
-        $slider_alti = DB::table("pages")->where("id", "37")->first();
-        $menu = DB::table("pages")->where("ust_id",null)->get();
+        $seo = Page::where("slug", "kurumsal")->first();
+        $iletisim = Iletisim::first();
+        $slider = Page::where("ust_id", "34")->get();
+        $slider_alti = Page::where("id", "37")->first();
+        $menu = Page::where("ust_id",null)->get();
         //
-        $settings = DB::table("users")->first();
+        $settings = User::first();
 
         echo view('includes/head', compact('menu', 'seo',  'iletisim', 'settings'));
         echo view('hakkimizda', compact('slider_alti', 'seo','slider', 'iletisim'));
@@ -43,14 +43,14 @@ class Controller extends BaseController
     }
     public function hizmetlerimiz()
     {
-        $seo = DB::table("pages")->where("slug", "hizmetlerimiz")->first();
-        $hizmetlerimiz = DB::table("pages")->where("ust_id", "3")->get();
-        $iletisim = DB::table("iletisims")->first();
-        $slider = DB::table("pages")->where("ust_id", "34")->get();
-        $slider_alti = DB::table("pages")->where("id", "37")->first();
-        $menu = DB::table("pages")->where("ust_id",null)->get();
+        $seo = Page::where("slug", "hizmetlerimiz")->first();
+        $hizmetlerimiz = Page::where("ust_id", "3")->get();
+        $iletisim = Iletisim::first();
+        $slider = Page::where("ust_id", "34")->get();
+        $slider_alti = Page::where("id", "37")->first();
+        $menu = Page::where("ust_id",null)->get();
         //
-        $settings = DB::table("users")->first();
+        $settings = User::first();
 
         echo view('includes/head', compact('menu', 'seo',  'iletisim', 'settings'));
         echo view('hizmetlerimiz', compact('slider_alti','hizmetlerimiz', 'seo','slider', 'iletisim'));
@@ -58,12 +58,12 @@ class Controller extends BaseController
     }
     public function yazilarimiz()
     {
-        $seo = DB::table("pages")->where("slug", "blog")->first();
-        $yazilarimiz = DB::table("pages")->where("ust_id", "4")->get();
-        $iletisim = DB::table("iletisims")->first();
-        $menu = DB::table("pages")->where("ust_id",null)->get();
+        $seo = Page::where("slug", "blog")->first();
+        $yazilarimiz = Page::where("ust_id", "4")->get();
+        $iletisim = Iletisim::first();
+        $menu = Page::where("ust_id",null)->get();
         //
-        $settings = DB::table("users")->first();
+        $settings = User::first();
 
         echo view('includes/head', compact('menu', 'seo',  'iletisim', 'settings'));
         echo view('yazilarimiz', compact('yazilarimiz', 'seo', 'iletisim'));
@@ -71,16 +71,16 @@ class Controller extends BaseController
     }
     public function iletisim()
     {
-        $seo = DB::table("pages")->where("slug", "iletisim")->first();
-        $iletisim = DB::table("iletisims")->first();
-        $menu = DB::table("pages")->get();
+        $seo = Page::where("slug", "iletisim")->first();
+        $iletisim = Iletisim::first();
+        $menu = Page::get();
         //
-        $calisma_alanlari = Db::table('pages')->where("id", 3)->first();
-        $calisma_alanlari_cat = Db::table('pages')->where("ust_id", 3)->get();
-        $yazilarimiz = Db::table('pages')->where("ust_id", 4)->first();
-        $yazilarimiz_cat = Db::table('pages')->where("ust_id", 4)->get();
-        $son_blog_cek = Db::table('pages')->where("ust_id", 4)->limit(4)->get();
-        $settings = DB::table("users")->first();
+        $calisma_alanlari = Page::where("id", 3)->first();
+        $calisma_alanlari_cat = Page::where("ust_id", 3)->get();
+        $yazilarimiz = Page::where("ust_id", 4)->first();
+        $yazilarimiz_cat = Page::where("ust_id", 4)->get();
+        $son_blog_cek = Page::where("ust_id", 4)->limit(4)->get();
+        $settings = User::first();
 
         echo view('includes/head', compact('menu', 'seo', 'iletisim'));
         echo view('includes/breadcrumb', compact('seo'));
@@ -96,11 +96,11 @@ class Controller extends BaseController
             "baslik"=>"test",
             "gosterim_resmi"=>"test"
         ];
-        $arama_sonuclar = DB::table("pages")->where('baslik','LIKE', "%$aranan%")->orWhere('icerik','LIKE', "$aranan%")->orWhere('icerik','LIKE', "%$aranan%")->get();
-        $iletisim = DB::table("iletisims")->first();
-        $menu = DB::table("pages")->get();
+        $arama_sonuclar = Page::where('baslik','LIKE', "%$aranan%")->orWhere('icerik','LIKE', "$aranan%")->orWhere('icerik','LIKE', "%$aranan%")->get();
+        $iletisim = Iletisim::first();
+        $menu = Page::get();
         //
-        $settings = DB::table("users")->first();
+        $settings = User::first();
 
         echo view('includes/head', compact('menu', 'seo', 'iletisim','settings'));
         echo view('includes/breadcrumb', compact('seo'));

@@ -5,12 +5,12 @@
 			<div class="col-md-4">
 				<div class="footer-widget about-widget">
 					<div class="title">
-						<h3>About  Printify</h3>
+						<h3>Mert Baskı Merkezi</h3>
 					</div><!-- /.title -->
-					<p>Printify is an online design,copying and printing company that is passionate about great design and the difference it can make to our customers and the world.</p>
+					<p>{!! $iletisim->ar_id !!}</p>
 
                     <form action="#" class="footer-subscribe">
-                        <input type="text" name="email" placeholder="Email address">
+                        <input type="text" name="email" placeholder="E-Posta">
                         <button type="submit"><i class="fa fa-angle-right"></i></button>
                     </form><!-- /.footer-subscribe -->
 				</div><!-- /.footer-widget about-widget -->
@@ -18,31 +18,33 @@
 			<div class="col-md-2">
 				<div class="footer-widget links-widget explore">
 					<div class="title">
-						<h3>Explore</h3>
+						<h3>Menu</h3>
 					</div><!-- /.title -->
 					<ul class="link-list">
-						<li><a href="about.html">About</a></li>
-						<li><a href="contact.html">Contact</a></li>
-						<li><a href="services.html">Our Services</a></li>
-						<li><a href="pricing.html">Plans & Pricing</a></li>
-						<li><a href="#">How it Works</a></li>
+                        @foreach ($menu as $item)
+                        <li>
+                            <a href="<?=url("");?>/{{ $item->slug }}">{{ $item->baslik }}</a>
+                        </li>
+                        @endforeach
 					</ul><!-- /.link-list -->
 				</div><!-- /.footer-widget links-widget explore -->
 			</div><!-- /.col-md-2 -->
 			<div class="col-md-3">
 				<div class="footer-widget post-widget services">
 					<div class="title">
-						<h3>Latest Posts</h3>
+						<h3>Blog</h3>
 					</div><!-- /.title -->
 					<div class="post-widget">
+
                         <div class="single-post-widget">
-                            <a href="#" class="date">July 12, 2019</a>
-                            <h3 class="post-title"><a href="blog-details.html">A Clean Website Gives More Experience To The Visitors</a></h3><!-- /.post-title -->
-                        </div><!-- /.single-post-widget -->
-                        <div class="single-post-widget">
-                            <a href="#" class="date">July 12, 2019</a>
-                            <h3 class="post-title"><a href="blog-details.html">A Clean Website Gives More Experience To The Visitors</a></h3><!-- /.post-title -->
-                        </div><!-- /.single-post-widget -->
+                            <a href="#" class="date"></a>
+                            <h3 class="post-title">
+                                <a href="blog-details.html">
+
+                                </a>
+                            </h3>
+                        </div>
+
                     </div><!-- /.post-widget -->
 				</div><!-- /.footer-widget links-widget explore -->
 			</div><!-- /.col-md-3 -->
@@ -51,9 +53,10 @@
 					<div class="title">
 						<h3>İletişim</h3>
 					</div><!-- /.title -->
-					<p>000 8888 999</p>
-					<p>needhelp@printify.com</p>
-					<p>88 New Street, Washington DC <br> United States, America</p>
+					<p>{{ $iletisim->tel1 }}</p>
+					<p>{{ $iletisim->tel2 }}</p>
+					<p>{{ $iletisim->mail }}</p>
+					<p>{{ $iletisim->adres }}</p>
 				</div><!-- /.footer-widget links-widget explore -->
 			</div><!-- /.col-md-3 -->
 		</div><!-- /.row -->
@@ -62,7 +65,7 @@
 <div class="footer-bottom">
 	<div class="thm-container clearfix">
 		<div class="pull-left copy-text">
-			<p>&copy; Copyright <?php echo date("y");?> Mert Baskı Merkezi Tasarlayan <a href="www.madensoft.com">MadenSoft Yazılım</a></p>
+			<p>&copy; Copyright <?php echo date("Y");?> Mert Baskı Merkezi Tasarlayan <a href="www.madensoft.com">MadenSoft Yazılım</a></p>
 		</div><!-- /.pull-left copy-text -->
 		<div class="social-box pull-right">
             <a href="#" class="fab fa-twitter hvr-pulse"></a><!--
